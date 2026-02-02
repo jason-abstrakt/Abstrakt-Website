@@ -63,7 +63,7 @@ const App: React.FC = () => {
         )}
       </main>
       
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </div>
   );
 };
