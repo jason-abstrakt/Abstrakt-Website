@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 
 const ContactBackground: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const inViewRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -18,7 +21,7 @@ const ContactBackground: React.FC = () => {
       if (parent) {
         width = parent.clientWidth;
         height = parent.clientHeight;
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         ctx.scale(dpr, dpr);
@@ -27,12 +30,17 @@ const ContactBackground: React.FC = () => {
       }
     };
 
+    const observer = new IntersectionObserver(
+      ([entry]) => { inViewRef.current = entry.isIntersecting; },
+      { threshold: 0.05, rootMargin: '50px' }
+    );
+    observer.observe(container);
+
     window.addEventListener('resize', resize);
     resize();
 
-    // Configuration
-    const particleCount = 60;
-    const connectionDistance = 150;
+    const particleCount = 36;
+    const connectionDistance = 140;
     
     interface Particle {
       x: number;
@@ -97,13 +105,14 @@ const ContactBackground: React.FC = () => {
     render();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden">
        {/* Gradient Overlay */}
        <div className="absolute inset-0 bg-gradient-to-b from-off-black/50 via-transparent to-off-black/90 z-10"></div>
        <canvas ref={canvasRef} className="block w-full h-full opacity-60" />
