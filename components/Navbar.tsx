@@ -56,6 +56,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
           >
             Portfolio
           </a>
+          <a 
+            href="#login"
+            className="text-sm font-medium tracking-wide transition-colors text-white/70 hover:text-white"
+          >
+            Investor Login
+          </a>
           
           <div className="w-px h-4 bg-white/10 mx-2"></div>
           <a 
@@ -88,6 +94,13 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
               className={`text-lg font-medium text-center ${currentPage === 'portfolio' ? 'text-white' : 'text-white/80'}`}
             >
               Portfolio
+            </a>
+            <a 
+              href="#login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-lg font-medium text-center text-white/80 hover:text-white"
+            >
+              Investor Login
             </a>
             <a 
               href="#contact"
