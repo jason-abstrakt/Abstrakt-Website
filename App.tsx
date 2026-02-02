@@ -9,12 +9,12 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Background from './components/Background';
 
-type Page = 'home' | 'portfolio' | 'contact';
+type Page = 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms';
 
 const App: React.FC = () => {
   const [page, setPage] = useState<Page>('home');
 
-  const handleNavigate = (target: 'home' | 'portfolio' | 'fund' | 'contact') => {
+  const handleNavigate = (target: 'home' | 'portfolio' | 'fund' | 'contact' | 'privacy' | 'terms') => {
     if (target === 'portfolio') {
       setPage('portfolio');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -23,6 +23,12 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'contact') {
       setPage('contact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (target === 'privacy') {
+      setPage('privacy');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (target === 'terms') {
+      setPage('terms');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'fund') {
       setPage('home');
@@ -61,9 +67,21 @@ const App: React.FC = () => {
              <Contact />
           </div>
         )}
+
+        {page === 'privacy' && (
+          <div className="animate-in fade-in duration-500 pt-20">
+             <PrivacyPolicy />
+          </div>
+        )}
+
+        {page === 'terms' && (
+          <div className="animate-in fade-in duration-500 pt-20">
+             <TermsOfService />
+          </div>
+        )}
       </main>
       
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </div>
   );
 };

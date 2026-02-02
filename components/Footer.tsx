@@ -1,7 +1,18 @@
 import React from 'react';
 import { Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (page: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms') => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const handleNavClick = (e: React.MouseEvent, target: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms') => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(target);
+    }
+  };
+
   return (
     <footer className="relative z-10 border-t border-white/[0.05] bg-off-black pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
@@ -58,8 +69,8 @@ const Footer: React.FC = () => {
             © {new Date().getFullYear()} Abstrakt Capital. All rights reserved.
           </p>
           <div className="flex gap-8 text-sm text-white/30">
-            <a href="#" className="hover:text-white/50 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white/50 transition-colors">Terms of Service</a>
+            <a href="#" onClick={(e) => handleNavClick(e, 'privacy')} className="hover:text-white/50 transition-colors">Privacy Policy</a>
+            <a href="#" onClick={(e) => handleNavClick(e, 'terms')} className="hover:text-white/50 transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
