@@ -35,9 +35,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h3 className="text-white font-medium mb-6">Explore</h3>
             <ul className="flex flex-col gap-4">
-              <li><a href="#" className="text-white/50 hover:text-white transition-colors">Home</a></li>
-              <li><a href="#portfolio" className="text-white/50 hover:text-white transition-colors">Portfolio</a></li>
-              <li><a href="#contact" className="text-white/50 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/" onClick={(e) => handleNavClick(e, 'home')} className="text-white/50 hover:text-white transition-colors">Home</a></li>
+              <li><a href="/portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="text-white/50 hover:text-white transition-colors">Portfolio</a></li>
+              <li><a href="/contact" onClick={(e) => handleNavClick(e, 'contact')} className="text-white/50 hover:text-white transition-colors">Contact</a></li>
               <li><a href="#login" className="text-white/50 hover:text-white transition-colors flex items-center gap-2">Investor Login <ArrowUpRight size={14} /></a></li>
             </ul>
           </div>
@@ -69,8 +69,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             © {new Date().getFullYear()} Abstrakt Capital. All rights reserved.
           </p>
           <div className="flex gap-8 text-sm text-white/30">
-            <a href="#" onClick={(e) => handleNavClick(e, 'privacy')} className="hover:text-white/50 transition-colors">Privacy Policy</a>
-            <a href="#" onClick={(e) => handleNavClick(e, 'terms')} className="hover:text-white/50 transition-colors">Terms of Service</a>
+            <a href="/privacy" onClick={(e) => handleNavClick(e, 'privacy')} className="hover:text-white/50 transition-colors">Privacy Policy</a>
+            <a href="/terms" onClick={(e) => handleNavClick(e, 'terms')} className="hover:text-white/50 transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

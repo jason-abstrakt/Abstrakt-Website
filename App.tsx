@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import InvestmentFocus from './components/InvestmentFocus';
@@ -8,30 +8,61 @@ import CTA from './components/CTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Background from './components/Background';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 
 type Page = 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms';
 
+const PATHS: Record<Page, string> = {
+  home: '/',
+  portfolio: '/portfolio',
+  contact: '/contact',
+  privacy: '/privacy',
+  terms: '/terms',
+};
+
+function getPageFromPathname(): Page {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  if (path === '/portfolio') return 'portfolio';
+  if (path === '/contact') return 'contact';
+  if (path === '/privacy') return 'privacy';
+  if (path === '/terms') return 'terms';
+  return 'home';
+}
+
 const App: React.FC = () => {
-  const [page, setPage] = useState<Page>('home');
+  const [page, setPage] = useState<Page>(getPageFromPathname);
+
+  useEffect(() => {
+    const onPopState = () => setPage(getPageFromPathname());
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   const handleNavigate = (target: 'home' | 'portfolio' | 'fund' | 'contact' | 'privacy' | 'terms') => {
     if (target === 'portfolio') {
       setPage('portfolio');
+      window.history.pushState({}, '', PATHS.portfolio);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'home') {
       setPage('home');
+      window.history.pushState({}, '', PATHS.home);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'contact') {
       setPage('contact');
+      window.history.pushState({}, '', PATHS.contact);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'privacy') {
       setPage('privacy');
+      window.history.pushState({}, '', PATHS.privacy);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'terms') {
       setPage('terms');
+      window.history.pushState({}, '', PATHS.terms);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'fund') {
       setPage('home');
+      window.history.pushState({}, '', PATHS.home);
       setTimeout(() => {
         const el = document.getElementById('fund');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
