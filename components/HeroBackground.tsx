@@ -1,17 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 
 const HeroBackground: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const targetMouseRef = useRef({ x: 0, y: 0 });
   const scrollRef = useRef(0);
-  const inViewRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
+    if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -26,7 +23,7 @@ const HeroBackground: React.FC = () => {
         width = parent.clientWidth;
         height = parent.clientHeight;
         
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dpr = window.devicePixelRatio || 1;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         
@@ -36,33 +33,21 @@ const HeroBackground: React.FC = () => {
       }
     };
 
-    let mouseRafId: number;
     const handleMouseMove = (e: MouseEvent) => {
-      if (mouseRafId) cancelAnimationFrame(mouseRafId);
-      mouseRafId = requestAnimationFrame(() => {
-        const rect = canvas.getBoundingClientRect();
-        targetMouseRef.current = {
-          x: e.clientX - rect.left - width / 2,
-          y: e.clientY - rect.top - height / 2
-        };
-      });
+      const rect = canvas.getBoundingClientRect();
+      targetMouseRef.current = {
+        x: e.clientX - rect.left - width / 2,
+        y: e.clientY - rect.top - height / 2
+      };
     };
 
-    let scrollTick = 0;
     const handleScroll = () => {
-      scrollTick++;
-      if (scrollTick % 2 === 0) scrollRef.current = window.scrollY;
+      scrollRef.current = window.scrollY;
     };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => { inViewRef.current = entry.isIntersecting; },
-      { threshold: 0.1, rootMargin: '50px' }
-    );
-    observer.observe(container);
 
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
     resize();
 
     // Animation state
@@ -78,10 +63,6 @@ const HeroBackground: React.FC = () => {
     ];
 
     const render = () => {
-      if (!inViewRef.current) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
       time++;
       
       // Calculate Scroll Effects
@@ -130,7 +111,7 @@ const HeroBackground: React.FC = () => {
 
         ctx.beginPath();
         
-        const segments = 72;
+        const segments = 120;
         for (let i = 0; i <= segments; i++) {
           const theta = (i / segments) * Math.PI * 2;
           
@@ -146,12 +127,12 @@ const HeroBackground: React.FC = () => {
           let morph = 0;
           if (dist < interactionRadius) {
              const t = 1 - (dist / interactionRadius);
-             morph = t * t * (ring.distortion + chaos);
+             morph = t * t * (ring.distortion + chaos); // Add chaos to distortion
           }
 
-          // Idle wave + deterministic jitter (no Math.random in loop)
+          // Idle wave + Scroll chaos
           const wave = Math.sin(theta * 8 + time * 0.02) * 5;
-          const jitter = (Math.sin(theta * 7 + time * 0.03) * 0.5) * chaos;
+          const jitter = (Math.random() - 0.5) * chaos; // Random jaggedness when scrolling
 
           const r = effectiveR + morph + wave + jitter;
           
@@ -176,17 +157,21 @@ const HeroBackground: React.FC = () => {
         ctx.restore();
       });
 
-      // Particles (reduced count, deterministic)
-      const particles = 18;
+      // Particles
+      const particles = 30;
       for(let i = 0; i < particles; i++) {
+        // Particles scatter outwards
         const scatter = easedScroll * 1000;
+        
         const t = time * 0.0005 * rotationSpeedMult + i * (Math.PI * 2 / particles);
         const baseR = 350 + Math.sin(time * 0.003 + i * 2) * 80 + scatter;
-        const jitterX = Math.sin(time * 0.02 + i * 1.3) * chaos;
-        const jitterY = Math.cos(time * 0.025 + i * 1.7) * chaos;
         
-        let x = cx + Math.cos(t) * baseR + jitterX;
-        let y = cy + Math.sin(t) * baseR + jitterY;
+        let x = cx + Math.cos(t) * baseR;
+        let y = cy + Math.sin(t) * baseR;
+
+        // Add some random scatter offset based on scroll
+        x += (Math.random() - 0.5) * chaos;
+        y += (Math.random() - 0.5) * chaos;
 
         const pParallax = 0.15 + (i % 5) * 0.02;
         x += mouseRef.current.x * pParallax;
@@ -215,17 +200,15 @@ const HeroBackground: React.FC = () => {
     render();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrameId);
-      if (mouseRafId) cancelAnimationFrame(mouseRafId);
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
       <div 
         className="absolute inset-0 z-10"
         style={{

@@ -1,14 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
 const OrbAnimation: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const inViewRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -22,7 +19,7 @@ const OrbAnimation: React.FC = () => {
       if (parent) {
         width = parent.clientWidth;
         height = parent.clientHeight;
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dpr = window.devicePixelRatio || 1;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         ctx.scale(dpr, dpr);
@@ -31,16 +28,10 @@ const OrbAnimation: React.FC = () => {
       }
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => { inViewRef.current = entry.isIntersecting; },
-      { threshold: 0.05, rootMargin: '100px' }
-    );
-    observer.observe(container);
-
     window.addEventListener('resize', resize);
     resize();
 
-    // --- Particle Logic (reduced counts for performance) ---
+    // --- Particle Logic ---
     
     interface Point3D {
       x: number;
@@ -53,7 +44,7 @@ const OrbAnimation: React.FC = () => {
     }
 
     const spherePoints: Point3D[] = [];
-    const numSpherePoints = 280;
+    const numSpherePoints = 600;
     const sphereRadius = 160;
 
     // Fibonacci Sphere Distribution for even point spread
@@ -77,7 +68,7 @@ const OrbAnimation: React.FC = () => {
     }
 
     const ambientParticles: Point3D[] = [];
-    const numAmbient = 80;
+    const numAmbient = 200; // Increased to add more particles floating around
     for(let i=0; i<numAmbient; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
@@ -93,10 +84,7 @@ const OrbAnimation: React.FC = () => {
     }
 
     const render = () => {
-      if (!inViewRef.current) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
+      // Much slower time increment
       time += 0.001; 
       ctx.clearRect(0, 0, width, height);
 
@@ -177,14 +165,13 @@ const OrbAnimation: React.FC = () => {
     render();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 bg-transparent">
+    <div className="absolute inset-0 bg-transparent">
         <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );

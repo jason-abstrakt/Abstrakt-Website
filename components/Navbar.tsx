@@ -12,16 +12,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 20);
-        ticking = false;
-      });
+      setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -62,12 +56,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
           >
             Portfolio
           </a>
-          <a 
-            href="#login"
-            className="text-sm font-medium tracking-wide transition-colors text-white/70 hover:text-white"
-          >
-            Investor Login
-          </a>
           
           <div className="w-px h-4 bg-white/10 mx-2"></div>
           <a 
@@ -100,13 +88,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
               className={`text-lg font-medium text-center ${currentPage === 'portfolio' ? 'text-white' : 'text-white/80'}`}
             >
               Portfolio
-            </a>
-            <a 
-              href="#login"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium text-center text-white/80"
-            >
-              Investor Login
             </a>
             <a 
               href="#contact"
