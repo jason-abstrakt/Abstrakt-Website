@@ -57,7 +57,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </a>
               </li>
               <li className="flex gap-4 mt-2">
-                <a href="#" className="text-white/50 hover:text-white transition-colors">
+                <a href="https://www.linkedin.com/company/abstrakt-capital" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">
                   <Linkedin size={20} />
                 </a>
                 <a href="#" className="text-white/50 hover:text-white transition-colors">
