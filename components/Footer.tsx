@@ -47,8 +47,13 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <h3 className="text-white font-medium mb-6">Connect</h3>
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="mailto:jason@abstrakt.group" className="text-white/50 hover:text-white transition-colors">
-                  jason@abstrakt.group
+                <a href="mailto:jason@abstrakt.capital" className="text-white/50 hover:text-white transition-colors">
+                  jason@abstrakt.capital
+                </a>
+              </li>
+              <li>
+                <a href="mailto:william@abstrakt.capital" className="text-white/50 hover:text-white transition-colors">
+                  william@abstrakt.capital
                 </a>
               </li>
               <li className="flex gap-4 mt-2">
