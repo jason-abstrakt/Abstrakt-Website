@@ -2,11 +2,11 @@ import React from 'react';
 import { Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate?: (page: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms') => void;
+  onNavigate?: (page: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms' | 'login') => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  const handleNavClick = (e: React.MouseEvent, target: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms') => {
+  const handleNavClick = (e: React.MouseEvent, target: 'home' | 'portfolio' | 'contact' | 'privacy' | 'terms' | 'login') => {
     e.preventDefault();
     if (onNavigate) {
       onNavigate(target);
@@ -38,7 +38,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li><a href="/" onClick={(e) => handleNavClick(e, 'home')} className="text-white/50 hover:text-white transition-colors">Home</a></li>
               <li><a href="/portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="text-white/50 hover:text-white transition-colors">Portfolio</a></li>
               <li><a href="/contact" onClick={(e) => handleNavClick(e, 'contact')} className="text-white/50 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#login" className="text-white/50 hover:text-white transition-colors flex items-center gap-2">Investor Login <ArrowUpRight size={14} /></a></li>
+              <li><a href="/login" onClick={(e) => handleNavClick(e, 'login')} className="text-white/50 hover:text-white transition-colors flex items-center gap-2">Investor Login <ArrowUpRight size={14} /></a></li>
             </ul>
           </div>
 

@@ -3,8 +3,8 @@ import { Menu, X } from 'lucide-react';
 import { NavItem } from '../types';
 
 interface NavbarProps {
-  onNavigate: (page: 'home' | 'portfolio' | 'fund' | 'contact') => void;
-  currentPage: 'home' | 'portfolio' | 'contact';
+  onNavigate: (page: 'home' | 'portfolio' | 'fund' | 'contact' | 'login') => void;
+  currentPage: 'home' | 'portfolio' | 'contact' | 'login';
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent, target: 'home' | 'portfolio' | 'fund' | 'contact') => {
+  const handleNavClick = (e: React.MouseEvent, target: 'home' | 'portfolio' | 'fund' | 'contact' | 'login') => {
     e.preventDefault();
     onNavigate(target);
     setIsMobileMenuOpen(false);
@@ -57,8 +57,9 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
             Portfolio
           </a>
           <a 
-            href="#login"
-            className="text-sm font-medium tracking-wide transition-colors text-white/70 hover:text-white"
+            href="/login"
+            onClick={(e) => handleNavClick(e, 'login')}
+            className={`text-sm font-medium tracking-wide transition-colors ${currentPage === 'login' ? 'text-white' : 'text-white/70 hover:text-white'}`}
           >
             Investor Login
           </a>
@@ -96,9 +97,9 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
               Portfolio
             </a>
             <a 
-              href="#login"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium text-center text-white/80 hover:text-white"
+              href="/login"
+              onClick={(e) => handleNavClick(e, 'login')}
+              className={`text-lg font-medium text-center ${currentPage === 'login' ? 'text-white' : 'text-white/80 hover:text-white'}`}
             >
               Investor Login
             </a>
