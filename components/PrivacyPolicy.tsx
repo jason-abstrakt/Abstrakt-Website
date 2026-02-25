@@ -102,7 +102,7 @@ const PrivacyPolicy: React.FC = () => {
               <li><strong className="text-white">Data Portability:</strong> Request transfer of your information to another party</li>
             </ul>
             <p>
-              To exercise any of these rights, please contact us at <a href="mailto:william@abstrakt.capital" className="text-white underline hover:no-underline">william@abstrakt.capital</a>. We will respond to your request within a reasonable timeframe and as required by applicable law.
+              To exercise any of these rights, please contact us at <a href="mailto:jason@abstrakt.capital" className="text-white underline hover:no-underline">jason@abstrakt.capital</a>. We will respond to your request within a reasonable timeframe and as required by applicable law.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ const PrivacyPolicy: React.FC = () => {
           <div>
             <h2 className="text-2xl text-white font-normal mb-4">10. Children's Privacy</h2>
             <p>
-              Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately at <a href="mailto:william@abstrakt.capital" className="text-white underline hover:no-underline">william@abstrakt.capital</a>, and we will take steps to delete such information.
+              Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately at <a href="mailto:jason@abstrakt.capital" className="text-white underline hover:no-underline">jason@abstrakt.capital</a>, and we will take steps to delete such information.
             </p>
           </div>
 
@@ -155,7 +155,7 @@ const PrivacyPolicy: React.FC = () => {
             <p className="mb-4">If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at:</p>
             <div className="bg-white/5 p-6 rounded-lg border border-white/10">
               <p className="font-semibold text-white">Abstrakt Capital, LLC</p>
-              <p><a href="mailto:william@abstrakt.capital" className="text-white/70 hover:text-white transition-colors">william@abstrakt.capital</a></p>
+              <p><a href="mailto:jason@abstrakt.capital" className="text-white/70 hover:text-white transition-colors">jason@abstrakt.capital</a></p>
             </div>
           </div>
 

@@ -51,11 +51,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   jason@abstrakt.capital
                 </a>
               </li>
-              <li>
-                <a href="mailto:william@abstrakt.capital" className="text-white/50 hover:text-white transition-colors">
-                  william@abstrakt.capital
-                </a>
-              </li>
               <li className="flex gap-4 mt-2">
                 <a href="https://www.linkedin.com/company/abstrakt-capital" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">
                   <Linkedin size={20} />
