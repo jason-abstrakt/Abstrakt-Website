@@ -18,7 +18,7 @@ export interface StrategyItem {
 export interface PortfolioItem {
   name: string;
   description: string;
-  type: 'Anchor Investor' | 'Investor' | 'Acquisition' | 'Venture Studio';
+  type: 'Anchor Investor' | 'Investor' | 'Acquisition';
   year: string;
   image?: string; // Optional image URL
 }

@@ -41,11 +41,11 @@ const portfolioItems: PortfolioItem[] = [
     image: 'https://abstrakt.b-cdn.net/APEX.jpg'
   },
   {
-    name: 'Botsi, Inc.',
-    description: 'Dynamic Pricing SAAS Platform.',
-    type: 'Venture Studio',
+    name: 'Deva, Inc.',
+    description: 'Precision Component Manufacturing.',
+    type: 'Investor',
     year: '2025',
-    image: 'https://abstrakt.b-cdn.net/Botsi.jpg'
+    image: 'https://abstrakt.b-cdn.net/Deva.jpg'
   },
   {
     name: 'Metal Solutions',
@@ -81,13 +81,6 @@ const portfolioItems: PortfolioItem[] = [
     type: 'Investor',
     year: '2025',
     image: 'https://abstrakt.b-cdn.net/HanselUnion.jpg'
-  },
-  {
-    name: 'Deva, Inc.',
-    description: 'Precision Component Manufacturing.',
-    type: 'Investor',
-    year: '2025',
-    image: 'https://abstrakt.b-cdn.net/Deva.jpg'
   }
 ];
 
@@ -258,7 +251,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ showViewAllLink = false, onNaviga
                           ${item.type === 'Acquisition' ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-300' : ''}
                           ${item.type === 'Investor' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300' : ''}
                           ${item.type === 'Anchor Investor' ? 'bg-purple-500/10 border-purple-500/20 text-purple-300' : ''}
-                          ${item.type === 'Venture Studio' ? 'bg-amber-500/10 border-amber-500/20 text-amber-300' : ''}
                         `}>
                           {item.type}
                         </span>
