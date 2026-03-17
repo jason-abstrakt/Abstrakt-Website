@@ -66,7 +66,8 @@ const portfolioItems: PortfolioItem[] = [
     description: 'Painting (Commercial and Residential).',
     type: 'Investor',
     year: '2025',
-    image: 'https://abstrakt.b-cdn.net/Painting.jpg'
+    image: 'https://abstrakt.b-cdn.net/Painting.jpg',
+    exited: true
   },
   {
     name: 'Pavoginilli Group',
@@ -81,6 +82,13 @@ const portfolioItems: PortfolioItem[] = [
     type: 'Investor',
     year: '2025',
     image: 'https://abstrakt.b-cdn.net/HanselUnion.jpg'
+  },
+  {
+    name: 'Craig Companies',
+    description: 'Fire Protection and Plumbing Services.',
+    type: 'Investor',
+    year: '2026',
+    image: 'https://abstrakt.b-cdn.net/FireSafety.jpeg'
   }
 ];
 
@@ -225,6 +233,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ showViewAllLink = false, onNaviga
                         <div className="w-full h-full flex items-center justify-center">
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             <ImageIcon className="text-white/10 w-12 h-12 group-hover:scale-110 transition-transform duration-700" />
+                        </div>
+                      )}
+
+                      {item.exited && (
+                        <div className="absolute top-3 left-3 z-10">
+                          <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-1 rounded-sm border whitespace-nowrap bg-rose-500/15 border-rose-500/30 text-rose-200 backdrop-blur">
+                            Exited
+                          </span>
                         </div>
                       )}
                     </div>

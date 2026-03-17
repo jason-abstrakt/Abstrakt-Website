@@ -21,4 +21,5 @@ export interface PortfolioItem {
   type: 'Anchor Investor' | 'Investor' | 'Acquisition';
   year: string;
   image?: string; // Optional image URL
+  exited?: boolean;
 }
